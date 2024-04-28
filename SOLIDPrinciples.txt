@@ -1,0 +1,31 @@
+Priniciples:
+============
+SRP	The Single Responsibility Principle''	A class should have one, and only one, reason to change.(Readabulity,Scalabulity)
+OCP	The Open Closed Principle	        You should be able to extend a classes behavior, without modifying it.(Extendabulity)ex:Interface
+LSP	The Liskov Substitution Principle	Derived classes must be substitutable for their base classes.(Reusability)
+ISP	The Interface Segregation Principle	Make fine grained interfaces that are client specific.
+DIP	The Dependency Inversion Principle	Depend on abstractions, not on concretions.(Interface) unite testing
+
+1.Readabulity
+2.Scalabulity
+3.Clean code
+4.Testbulity
+5.Reusabulity
+6.Extendabulity
+
+
+Spring IOC
+===============
+code rote and software rote
+
+================
+Different type associations 
+
+Aggregation vs associations
+
+ULM digram--class digrams and sequence digram
+
+composition relationship
+IOC relations(Aggregation relation)
+=================
+behavirial desing patteran-tomorrow

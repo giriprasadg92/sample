@@ -1,0 +1,95 @@
+Desny:
+=====
+1.oop's concepts:
+2.Java 8 feature's
+4.REST API full form
+5.REST API is stateless or statefull
+Ans:stateless
+6.@RequestMapping @RestController
+7.Can we use the @Componet instede of @Service annotation
+ANs:Yes we can use
+8.update query
+9.GroupBy and Having
+10.Having and where clause
+11.Spring boot annotations
+12.Forbiden
+   While both codes indicate that access to a resource is restricted, the distinction lies in the reason for the restriction. The 402 code specifically implies that payment is required, whereas the 403 code implies that access is forbidden due to other reasons, such as insufficient permissions or authentication failure
+The "401 Unauthorized" status code indicates that the request lacks valid authentication credentials. 
+The 400 Bad Request status code means that the server could not understand the request because of invalid syntax
+The HTTP Status 204 means that it’s a successful request, but doesn’t have a response body, while the 404 means the resource doesn’t exist.
+13.Null
+14.when to use the predicate
+===============================================================================================
+1.Cursers
+2.Stream API
+3.Diff between Predicate and function
+4.Types of annotations
+5.PL/sql structure
+Ans:PL/sql block structure
+===
+The anonymous block has three basic secions that are the declaration,execution,and exception handling.Only the execution section is mondatory and the other
+are optional..
+The declaration section allows you to define data types,structures, and vairables.
+[DECLARE]
+   Declaration statements;
+BEGIN
+   [EXCEPTION]
+      Exceptionhandling statements;
+END;
+/
+
+
+6.Why String is immutable
+=========================
+1.multiple micro services are there and client send request and it comming through api gateway.one microservice calling the another microservie finally calling the DB but DB is down how to handle this situation
+Ans:
+===
+Handling a scenario where the database is down in a microservices architecture involves implementing various strategies to ensure fault tolerance and graceful degradation. Here are some approaches to consider:
+
+Circuit Breaker Pattern:
+Implement a circuit breaker pattern in your microservices to detect failures and prevent cascading failures throughout the system. When the database is down, the circuit breaker can trip, temporarily stopping requests to the downstream services and returning an error response to the client immediately, instead of letting the requests timeout or waiting indefinitely.
+Timeouts:
+Set appropriate timeouts for requests to downstream services to prevent them from blocking indefinitely. If the database is down, waiting for a response indefinitely can lead to resource exhaustion and degradation of the entire system.
+Retry Mechanism:
+Implement a retry mechanism for failed requests to the database. When a request fails due to the database being down, the microservice can retry the request after a short delay. However, ensure that the retry logic has an upper limit to avoid overwhelming the system with retries in case the database remains unavailable.
+Fallback Mechanism:
+Define fallback mechanisms for critical operations that require access to the database. In case the database is down, the microservice can fall back to using cached data, default values, or alternative data sources to provide partial functionality to the clients.
+Graceful Degradation:
+Design your microservices to gracefully degrade functionality when certain dependencies are unavailable. For example, if the database is down, the microservice can still serve read-only requests or provide limited functionality that doesn't rely on database access.
+Health Checks and Monitoring:
+Implement health checks for all microservices and infrastructure components, including the database. Continuously monitor the health of these components, and use the information to dynamically adjust routing or failover strategies when necessary.
+Service Discovery and Load Balancing:
+Utilize service discovery and load balancing mechanisms to route requests to healthy instances of microservices. When the database is down, the API gateway or service mesh can reroute requests away from affected instances to minimize the impact on clients.
+Asynchronous Communication:
+Consider using asynchronous communication patterns such as message queues or event-driven architectures. When the database is down, microservices can store requests in a message queue and process them later when the database becomes available.
+By implementing these strategies, you can improve the resilience of your microservices architecture and minimize the impact of database failures on the overall system performance and availability.
+
+2.session management in microservices
+Ans:
+===
+In a traditional monolithic application, session management is often handled using server-side sessions or session cookies. However, in a microservices architecture, session management is typically decentralized due to the distributed nature of the services. Here are some approaches to session management in microservices:
+
+Stateless Authentication:
+Use stateless authentication mechanisms such as JSON Web Tokens (JWT) or OAuth 2.0. With JWT, authentication tokens are issued by an authentication service upon successful login and contain user claims. Each microservice can verify the JWT token independently without the need for a shared session store. OAuth 2.0 is another popular standard for token-based authentication and authorization.
+Client-Side Sessions:
+Store session state on the client side using techniques like local storage or cookies. When a client makes a request to a microservice, it includes the session token in the request headers. The microservice validates the token and extracts the necessary session information from it.
+Distributed Session Store:
+If you need server-side session management, consider using a distributed session store such as Redis or Hazelcast. Each microservice instance can access the session store to read and write session data. This approach allows for scalability and resilience since the session store can be replicated and distributed across multiple nodes.
+Session Affinity (Sticky Sessions):
+In scenarios where you need to maintain session affinity (also known as sticky sessions), the API gateway or load balancer can route subsequent requests from the same client to the same microservice instance that initially served the request. This ensures that session state is maintained within the same microservice instance.
+Externalized Session Management:
+Use externalized session management solutions such as Spring Session or Netflix Zuul. These frameworks provide features for managing session state in a distributed environment and integrating session management with other microservices components.
+Event-Driven Session Management:
+Implement event-driven session management using message queues or event sourcing. Events related to session creation, update, and expiration can be published to a message queue, allowing other microservices to react accordingly.
+Context Propagation:
+Implement context propagation mechanisms such as correlation IDs or distributed tracing to trace requests across multiple microservices. This allows you to correlate requests and responses even without traditional session management.
+The choice of session management approach depends on factors such as the nature of your application, scalability requirements, security considerations, and architectural preferences. Consider the trade-offs of each approach and choose the one that best fits your requirements.
+
+
+
+
+3.Singleton class
+4.what we can pass to stream's
+5.what is predicate
+6.what is externalization
+

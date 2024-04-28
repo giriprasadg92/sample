@@ -1,0 +1,115 @@
+1.How HashMap internally works?
+
+2.Diff HashMap and ConcurrentHashMap?
+
+  HashMap isn’t thread-safe at all. Thus, it is non-synchronized in nature. The ConcurrentHashMap, on the other hand, is thread-safe.
+  Due to non-synchronization, the performance of HashMap is relatively higher, and various threads are capable of performing simultaneously.
+  A similar case is not possible with ConcurrentHashMap. Its performance gets comparatively lower because some of the threads need to wait.
+  If the other threads try to modify or add the contents to an object while a thread iterates the HashMap object, 
+  we receive a run-time exception that says ConcurrentModificationException. 
+  On the other hand, the ConcurrentHashMap doesn’t generate any such exception when we perform any kinds of moderations during iteration
+
+3.Can we declare class has a private?
+
+  No,It is because, java follows oops concepts. If you make any class as private,
+  it will not be accessible from another class. So there can't be inheritance, runtime polymorphism, abstraction etc
+
+4.Can we declaire locale variable  has a static?
+ Java does not allow static local variables. The compiler will throw the compilation error
+Example:
+ public class Tester {
+   public static void main(String args[]) {
+      static int a = 10;
+   }
+}
+Output:
+======
+Tester.java:3: error: illegal start of expression                
+   static int a = 10;
+
+5.can we declaire constructore in the abstract class?
+
+  Yes we can declare constructore in the abstract class.No argumente constructor we can declaire
+
+6.can we declaire constructore in the Interface?
+  No we can not declare.
+
+7.Diff between get and load method in hibernate?
+
+         The performance issues is also major difference between get and load method.
+     The get() method fetches data as soon as it’s executed while the load() method returns a proxy object 
+     and fetches only data when object properties is required.
+     So that the load() method gets better performance because it support lazy loading.
+     Whe should use the load() method only when we know data exists because it throws exception when data is not found.
+     In case we want to make sure data exists we should use the get() method.
+
+ Session.get() loads the data as soon as it’s called whereas Session.load() returns a proxy object and loads data only when it’s actually required,
+ so load() is better because it supports lazy loading.
+ Since Session.load() throws an exception when data is not found, we should use it only when we know data exists.
+ We should use Session.get() when we want to make sure data exists in the database.
+
+8.how to handle the second level cash?
+
+9.Create RestEnd point?
+
+10.String s1 = new String("abc"); how many object are created and where?
+
+   There are two ways to create a String object:
+
+By string literal : Java String literal is created by using double quotes.
+For Example: String s=“Welcome”;  
+By new keyword : Java String is created by using a keyword “new”.
+For example: String s=new String(“Welcome”);  
+It creates two objects (in String pool and in heap) and one reference variable where the variable ‘s’ will refer to the object in the heap.
+
+Now, let us understand the concept of Java String pool.
+
+Java String Pool: Java String pool refers to collection of Strings which are stored in heap memory.
+ In this, whenever a new object is created, String pool first checks whether the object is already present in the pool or not.
+ If it is present, then same reference is returned to the variable else new object will be created in the String pool and
+ the respective reference will be returned. Refer to the diagrammatic representation for better understanding
+
+11.How to create immutable class?
+12.what are Java 8 features used in your project?
+13.How you are use oop's concepts in your project?
+14.Diff StringBuffer and StringBuilder?
+
+StringBuffer and StringBuilder.
+Let us understand the difference between these two utility classes:
+
+StringBuffer and StringBuilder are mutable classes. StringBuffer operations are thread-safe and synchronized whereas StringBuilder operations are not thread-safe.
+StringBuffer is to be used when multiple threads are working on same String and StringBuilder in the single threaded environment.
+StringBuilder performance is faster when compared to StringBuffer because of no overhead of synchronized.
+
+15.Method overriding ?
+
+  class Human{
+   //Overridden method
+   public void eat()
+   {
+      System.out.println("Human is eating");
+   }
+ }
+
+ class Boy extends Human{
+   //Overriding method
+   public void eat(){
+      System.out.println("Boy is eating");
+   }
+   public static void main( String args[]) {
+      Boy obj = new Boy();
+      //This will call the child class version of eat()
+      obj.eat();
+   }
+ }
+OutPut:
+======
+Boy is eating
+ 
+16.Why wait(),notify(),notifyAll() methods in object class?
+
+   Hence wait, notify() And notifyAll() work at object’s monitor level. 
+   If thread which is currently holding the monitor, wants to give up the monitor then it will call wait method on the object 
+   and if it want to notify other thread, then it will call notify method on the object.
+
+Spring Rest -----Jackson libraries-Jackson marshaling and unmarshaling

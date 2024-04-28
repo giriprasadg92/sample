@@ -1,0 +1,14 @@
+1.How to create Singleton class
+2.why String is immutable
+3.what is Fail fast and fail safe
+4.How HashMap works internally
+5.Final and finally 
+6.Java 8 features
+7.Diff between the Abstract class and interface
+8.@Qualifier
+9.@Componet
+10.@Service
+11.Sterio type annotations in spring boot
+12.How exception handling implemented in your project
+13.Write a program by using stream api find first repeated char in given string
+    String name ="thirupathi"

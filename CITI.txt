@@ -1,0 +1,242 @@
+1.Java 8 features
+
+2.Difference b/w spring & spring boot?
+
+ Auto configaration
+ embaded tomcat H2 db(inmemory)
+ actuatore 
+ microservice 
+ standalone app and web app
+
+3.What is multi threading?
+4.what is use of group by class
+5.Dependency injection
+6.String builder and String buffer(sync)
+7.How to create Spring boot project and create one end point(employ creation)
+8.JPA methods 
+
+save(), findById(), findAll(), and deleteById()
+
+9.Exception handling in Spring boot?
+
+ @ ControllerAdvice @ExceptionHandler
+
+10.what pom.xml and what is use the pom.xml
+11.How to configure multiple db's
+12.why java is not Multiple inheritancy
+   ambigity issue
+13.Default method
+
+   The default methods were introduced to provide backward compatibility so that existing interfaces can use the lambda expressions 
+   without implementing the methods in the implementation class. Default methods are also known as defender methods or virtual extension methods
+
+14.@Primary annotation @Qualifier
+
+15.Comparator and comparable interface?
+
+Comparable interface contains a method called compareTo(obj) which takes only one argument and 
+it compares itself with another instance or objects of the same class.not use primitive data
+
+Comparator interface contains a method called compare(obj1,obj2) which takes two arguments and 
+it compares the value of two objects from the same or different classes.
+
+a.compareTo(b):
+Comparable interface : Compares values and returns an int which tells if the values compare less than, equal, or greater than.
+If your class objects have a natural order, implement the Comparable<T> interface and define this method. 
+All Java classes that have a natural ordering implement Comparable<T> - Example: String, wrapper classes, BigInteger
+
+
+
+compare(a, b):
+Comparator interface : Compares values of two objects. 
+This is implemented as part of the Comparator<T> interface, and the typical use is to define one or more small utility classes that implement this, 
+to pass to methods such as sort() or for use by sorting data structures such as TreeMap and TreeSet
+
+
+
+16.get a list of square of even numbers from given arraylist
+ List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10); using java 8 ?
+
+List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+list.stream().filter(p -> p%2 == 0).forEach(p -> p = (long)Math.pow(p, 2)).forEach(System.out::println);
+
+17.
+cid cname date         sales_amt 
+1   Ind   11_jan        30K
+2   Jap   11_jan        25k
+1   Ind   11_jan        40K
+3   AUS   10-Jan         59k
+ 
+get country date wiese total sale ?
+
+ANS:
+Select cid,cname,date,sum(sales_amt) from salestable group by cname,date;
+
+18.What is Generics?
+   Generics enable the use of stronger type-checking, the elimination of casts, and the ability to develop generic algorithms.
+   Without generics, many of the features that we use in Java today would not be possible.
+Generics is a concept in Java where you can enable a class, interface and, method, accept all (reference) types as parameters.
+In other words it is the concept which enables the users to choose the reference type that a method, constructor of a class accepts, dynamically.
+By defining a class generic you are making it type-safe i.e. it can act up on any datatype. To understand generics let us consider an example −
+
+Example
+In the following Java example we are defining a class named Student whose constructor (parameterized) accepts an Integer object.
+ While instantiating this class you can pass an integer object
+
+19.Why java not supports multiple inheritance?
+
+   Ambiguity issue 
+
+
+
+Intermediate operations:
+=======================
+1.filter:- Exclude all elements that don't match a Predicate.
+2.map:- Perform a one-to-one transformation of elements using a Function.
+3.flatMap: - Transform each element into zero or more elements by way of another Stream.
+4.peek: - Perform some action on each element as it is encountered. Primarily useful for debugging.
+5.distinct: - Exclude all duplicate elements according to their .equals behavior. This is a stateful operation.
+6.sorted :- Ensure that stream elements in subsequent operations are encountered according to the order imposed by a Comparator. This is a stateful operation.
+7.limit: - Ensure that subsequent operations only see up to a maximum number of elements. This is a stateful, short-circuiting operation.
+8.skip: - Ensure that subsequent operations do not see the first n elements. This is a stateful operation.
+
+Terminal operations:
+===================
+
+1.forEach:- Perform some action for each element in the stream.
+2.toArray: - Dump the elements in the stream to an array.
+3.reduce: - Combine the stream elements into one using a BinaryOperator.
+4.collect: - Dump the elements in the stream into some container, such as a Collection or Map.
+5.min: - Find the minimum element of the stream according to a Comparator.
+6.max: - Find the maximum element of the stream according to a Comparator.
+7.count:- Find the number of elements in the stream.
+8.anyMatch: - Find out whether at least one of the elements in the stream matches a Predicate. This is a short-circuiting operation.
+9.allMatch: - Find out whether every element in the stream matches a Predicate. This is a short-circuiting operation.
+10:noneMatch:- Find out whether zero elements in the stream match a Predicate. This is a short-circuiting operation.
+11.findFirst:- Find the first element in the stream. This is a short-circuiting operation.
+12.findAny:- Find any element in the stream, which may be cheaper than findFirst for some streams. This is a short-circuiting operation.
+
+
+21.Without providing the DB details in propertie file will it run the Spring boot App ?
+
+===============================================================================================
+
+Second:
+======
+1.what static method
+2.Volataile key
+3.Session and SessionFactory methods in hibernate
+4.Can we override the static methods
+  NO
+5.Can we write the contrutore in Abstract class
+  Yes
+6.How to create the custome exception in Spring boot
+7.Java 8 features
+8.Jdbc vs hibernate
+9.why String is immutable?
+10.Why wait(),notify() are placed in object class
+11.HashMap vs ConcurrentHashMap
+12.What is Syncronization
+
+13.How to create immutable class?
+
+To create an immutable class in Java, you need to follow these general principles:
+
+1.Declare the class as final so it can’t be extended.
+2.Make all of the fields private so that direct access is not allowed.
+3.Don’t provide setter methods for variables.
+4.Make all mutable fields final so that a field’s value can be assigned only once.
+//5.Initialize all fields using a constructor method performing deep copy.
+6.Perform cloning of objects in the getter methods to return a copy rather than returning the actual object reference.
+
+14.Java 7 features
+15.Can we override the hashCode() in our class?
+16.What is method signature of compareTo() and compare() method and it's return type?
+==========================================================
+
+1.@PathParam:-@PathParam is from JAX-RS.@PathParam can use with REST only,
+    @Path("/library")
+  public class Library {
+
+   @GET
+   @Path("/book/{isbn}")
+   public String getBook(@PathParam("isbn") String id) {
+      // search my database and get a string representation and return it
+   }
+}
+
+2.@PathVariable:- @PathVariable is from spring, @PathVariable used in Spring so it works in MVC and REST.
+
+     http://localhost:8080/books/1234
+
+  @GetMapping("/books/{isbn}")
+    public Book getBook(@PathVariable("isbn") String isbn) {
+
+3.@RequestParam:-To assign URI parameter values to method arguments. In Spring, it is @RequestParam.
+
+    http://localhost:8080/books?isbn=1234
+
+  @GetMapping("/books/")
+     public Book getBookDetails(@RequestParam("isbn") String isbn) {
+
+
+As you mention @PathVariable is from spring and @PathParam is from JAX-RS.
+@PathParam can use with REST only, where @PathVariable used in Spring so it works in MVC and REST.
+
+=========================================================================================
+
+Third:
+======
+1.what is Functional Interface 
+
+In Java 8, there are a lot of functional interfaces are introduced in the java.util.function package and the more common ones include but are not limited to:
+Function :– it takes one argument and returns a result
+Consumer: – it takes one argument and returns no result (represents a side effect)
+Supplier :– it takes no argument and returns a result
+Predicate :– it takes one argument and returns a boolean
+BiFunction: – it takes two arguments and returns a result
+BiConsumer :- it takes two (reference type) input arguments and returns no result
+BinaryOperator: – it is similar to a BiFunction, taking two arguments and returning a result. The two arguments and the result are all of the same types
+UnaryOperator: – it is similar to a Function, taking a single argument and returning a result of the same type
+Runnable:- use to execute the instances of a class over another thread with no arguments and no return value.
+Callable:- use to execute the instances of a class over another thread with no arguments and it either returns a value or throws an exception.
+Comparator:-use to sort different objects in a user-defined order
+Comparable:- use to sort objects in the natural sort order 
+
+2.Comparable and Comparator
+3.sort the data based on date
+4.What is JPA and it's implentations?
+  The implementation of JPA(Java Persistence API) specifications is provided by many JPA providers, such as Hibernate, Toplink, iBatis, OpenJPA, etc.
+5.Spring boot annotations
+  
+  @EnableAutoConfiguration: It auto-configures the bean that is present in the classpath and configures it to run the methods.
+
+                          The use of this annotation is reduced in Spring Boot 1.2.0 release because developers provided an alternative of the annotation, i.e. @SpringBootApplication.
+
+@SpringBootApplication: It is a combination of three annotations @EnableAutoConfiguration, @ComponentScan, and @Configuration.
+
+@ConditionalOnClass and @ConditionalOnMissingClass
+
+@ConditionalOnBean and @ConditionalOnMissingBean
+
+@ConditionalOnProperty
+
+@ConditionalOnResource
+
+@ConditionalOnWebApplication and @ConditionalOnNotWebApplication
+
+@ConditionalOnExpression
+
+@Conditional
+
+6.When to use abstrate class and interface?
+
+Interface is used when you only want to declare which methods and members a class MUST have. Anyone implementing the interface will have to declare and implement the methods listed by the interface.
+
+If you also want to have a default implementation, use abstract class. Any class extending the abstract class will have to implement only its abstract methods and members, and will have some default implementation of the other methods of the abstract class, which you may override or not.
+
+--EDIT - forgot to mention, Earwicker reminded me
+
+Finally, you can implement as many interfaces as you want, but only extend one class (being it abstract or not). Keep that in mind before choosing
+

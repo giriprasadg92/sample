@@ -1,0 +1,104 @@
+
+1.Count the each occurance of charetor in iven string.
+
+Public static void main(String[] args){
+  String input ="GanjiGiriPrasad";
+  Map<String,Long> map=Arrays.stream(input.split(""))
+                             .collect(Collectors.groupingBy().(Function.identity,Collectors.counting()));
+  System.out.println(map);
+}
+
+2.Find the all the duplicate elements in a String
+   Public static void main(String[] args){
+  String input ="GanjiGiriPrasad";
+  List<String> duplicateChar=Arrays.stream(input.split(""))
+                             .collect(Collectors.groupingBy().(Function.identity,Collectors.counting()))
+                             .entrySet().stream()
+                             .filter(x->x.getValue>1)
+			     .map(Map.entry::getKey)
+                              .collect(Collector.toList());				
+  System.out.println(duplicateChar);
+}
+3.Unique char in String.
+ 2.Find the all the duplicate elements in a String
+   Public static void main(String[] args){
+  String input ="GanjiGiriPrasad";
+  List<String> uniqueChar=Arrays.stream(input.split(""))
+                             .collect(Collectors.groupingBy().(Function.identity,Collectors.counting()))
+                             .entrySet().stream()
+                             .filter(x->x.getValue==1)
+			     .map(Map.entry::getKey)
+                              .collect(Collector.toList());				
+  System.out.println(uniqueChar);
+}
+4.Find first non repeated char in String.
+  Public static void main(String[] args){
+  String input ="GanjiGiriPrasad";
+  String firstChar=Arrays.stream(input.split(""))
+                             .collect(Collectors.groupingBy().(Function.identity,LinkedHashMap::new,Collectors.counting()))
+                             .entrySet().stream()
+                             .filter(x->x.getValue==1)
+                             .findFirst().get.getKey();
+  System.out.println(firstChar);
+  }
+5.Find first  repeated char in String.
+  Public static void main(String[] args){
+  String input ="GanjiGiriPrasad";
+  String firstChar=Arrays.stream(input.split(""))
+                             .collect(Collectors.groupingBy().(Function.identity,LinkedHashMap::new,Collectors.counting()))
+                             .entrySet().stream()
+                             .filter(x->x.getValue>1)
+                             .findFirst().get.getKey();
+  System.out.println(firstChar);
+  }
+6.Find a second highest value in array
+   int[] numbers={5,9,11,2,8,21,1};
+  Integer secHighest =Arrays.stream(numbers).boxed
+          .sorted(Comparator.reverseOrder())
+          .skip(1)
+          .findFirst()
+          .get();
+ System.out.println(secHighest);
+}
+
+7.Find a second lowest value in array
+   int[] numbers={5,9,11,2,8,21,1};
+  Integer secHighest =Arrays.stream(numbers).boxed
+          .sorted()
+          .skip(1)
+          .findFirst()
+          .get();
+ System.out.println(secHighest);
+
+8.Find the logest String in given array
+  String[] strArray={"java","techie","springboot","microservices"};
+    String logestString=Arrays.stream(strArray)
+          .reduce(word1,word2)-.(word1.length>word2.length?word1:word2)
+          .get();
+
+  System.out.println(logestString);
+ }
+
+9.Find all the elements from array who starts with 1  
+   int[] numbers={5,9,11,2,8,21,1};
+  List<String> strList=Arrays.stream(numbers).boxed
+        .map(s->s+"")
+        .filter(s->s.startsWith("1"))
+        .collect(Collectors.toList());
+  System.out.println(strList)}
+
+
+10.String.join example
+   List<String> nos=Arrays.asList("1","2","3","4","5");
+   //1-2-3-4
+ String joinStr=String.join("-",nos);
+
+System.out.println(joinStr);
+
+
+11.
+   IntStream.rangClosed(1,10)
+            .skip(1)
+            .limit(8)
+            .forEach(System.out::println);
+

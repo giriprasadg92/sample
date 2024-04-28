@@ -1,0 +1,77 @@
+﻿
+
+Spring Boot Exception handling
+Spring Boot provides us tools to handle exceptions beyond simple 'try-catch' blocks. To use these tools, we apply a couple of annotations that allow us to treat exception handling as a cross-cutting concern:Spring Boot CRUD Operations- REST API.
+@ResponseStatus @ExceptionHandler @ControllerAdvice
+@ResponseStatus
+As the name suggests, @ResponseStatus allows us to modify the HTTP status of our response. It can be applied in the following places:
+⚫ On the exception class itself
+Along with the @ExceptionHandler annotation on methods
+• Along with the @ControllerAdvice annotation on classes
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class NoSuchElementFoundException extends RuntimeException {
++
+I
+public class NoSuchElementFoundException extends ResponseStatusException {
+public NoSuchElementFoundException(String message){
+}
+super(HttpStatus.NOT FOUND, message);
+@Override
+
+=======================================================================
+﻿
+
+package com.masterjskills.ems.exception;
+import java.time.LocalDateTime:
+@ControllerAdvice
+public class CustomizedExceptionHandling extends ResponseEntityExceptionHandler {
+@ExceptionHandler (EmployeeNotFoundException.class)
+public ResponseEntity<Object> handleExceptions ( EmployeeNotFoundException exception, WebRequest webRequest) { 
+ExceptionResponse response = new ExceptionResponse(); response.setDateTime (LocalDateTime.now());
+response.setMessage ("Employee Not found");
+response.setErrorCode (101);
+ResponseEntity<Object> entity = new ResponseEntity<> (response, HttpStatus.NOT_FOUND);
+return entity;
+
+============================================================================
+﻿
+
+package com.masterjskills.ems.exception;
+import com.masterjskills.ems.entity. Employee;
+public class EmployeeNotFoundException extends RuntimeException{
+}
+========================================================================
+﻿
+public class ExceptionResponse {
+private int errorCode; private String message;
+private LocalDateTime dateTime: public int getErrorCode() {
+}
+return errorCode;
+public void setErrorCode (int qrrorCode) { this.errorCode = errorCode;
+}
+public String getMessage() {
+}
+return message;
+public void setMessage (String message) {
+}
+this.message
+message;
+public LocalDateTime getDateTime() {
+}
+return dateTime;
+public void setDateTime (LocalDateTime dateTime) { 
+this.dateTime = datetime;
+======================================================
+﻿
+
+@Override
+public Employee findById(int theId)
+f
+Optional<Employee> result = employeeRepository.findById (theId); Employee the Employee = null;
+if (result.isPresent())
+else
+the Employee = result.get();
+throw new RuntimeException ("Employee id not found - + theId); throw new EmployeeNotFoundException();
+return the Employee;
+}
+

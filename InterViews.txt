@@ -1,0 +1,20 @@
+2.What is spring boot?
+2.Diff between spring boot and spring MVC? OR why do we use spring boot?
+
+Ans:
+Spring boot provides easy to create standalone, production application
+Spring boot provides different stater templates for simplification of dependencies and build configuration.
+It has embedded server support.
+In spring boot no requirment of xml based configuratio like web.xml,spring.xml
+Spring boot provides production ready feature such as health checks, information of application and other metrics also.
+#
+3.Any hands on experience in Spring boot 
+============================================
+
+Doubts:
+=====
+1.Project Package jar or war?
+2.how do you deploy the spring boot app?
+
+
+

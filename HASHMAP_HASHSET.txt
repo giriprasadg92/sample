@@ -1,0 +1,38 @@
+
+In Java 7, the internal implementation of HashMap is similar to the general concept outlined earlier, but there are some differences and specifics to be aware of. Here's how HashMap works internally based on Java 7:
+
+Array of Buckets:
+HashMap internally uses an array of buckets to store key-value pairs. Each bucket is essentially a linked list of entries.
+The size of the array is determined by the initial capacity specified when the HashMap is created.
+Hashing and Bucket Selection:
+When you insert a key-value pair into the HashMap, the key's hash code is computed using its hashCode() method.
+The hash code is then used to determine the index (bucket) where the entry will be stored in the array. The index is calculated using a hash function that distributes hash codes evenly across the array.
+Collision Resolution:
+In Java 7, HashMap resolves collisions using a technique called chaining, where entries with the same hash code are stored in the same bucket as a linked list.
+If multiple entries have the same hash code, they are appended to the linked list in the corresponding bucket.
+Load Factor and Resizing:
+HashMap in Java 7 has a default load factor of 0.75, which means that when the number of entries exceeds 75% of the capacity, the map is resized.
+Resizing involves creating a new array with a larger capacity and rehashing all the entries into the new array. This process can be relatively expensive.
+Iterating Over Entries:
+Iterating over entries in a HashMap in Java 7 does not guarantee any specific order, as the order is determined by the hash codes and the sequence of insertion.
+To iterate over entries, you can use the entrySet(), keySet(), or values() methods, which provide access to the entries, keys, and values, respectively.
+Overall, the internal workings of HashMap in Java 7 follow the same principles as described earlier, with specific details regarding hashing, collision resolution, resizing, and iteration. Understanding these internals is crucial for effectively using HashMap and optimizing its performance in Java 7 applications
+
+In Java 7, HashSet is implemented using a HashMap under the hood. Here's how HashSet works internally based on Java 7 specification:
+
+Using HashMap:
+Internally, a HashSet is backed by a HashMap. The elements of the HashSet are stored as keys in the HashMap, and the corresponding values are a constant placeholder object (typically PRESENT).
+The HashMap uses its key-value pairs to efficiently store and retrieve elements while ensuring uniqueness.
+Addition of Elements:
+When you add an element to a HashSet using the add() method, the element is added to the HashSet by inserting it into the HashMap as a key, with a constant placeholder value.
+Since keys in a HashMap must be unique, duplicate elements are automatically eliminated in the process of adding elements to the HashSet.
+Checking for Element Existence:
+When you call the contains() method on a HashSet to check for the existence of an element, it internally delegates to the containsKey() method of the underlying HashMap.
+The containsKey() method efficiently checks if the specified element is present in the HashMap by searching for its corresponding key.
+Iteration Over Elements:
+Iterating over elements in a HashSet is done by iterating over the keys of the underlying HashMap.
+You can obtain an iterator over the elements of the HashSet using the iterator() method, which internally creates an iterator over the keys of the HashMap.
+Performance Considerations:
+Since HashSet relies on HashMap internally, the performance characteristics of HashSet operations, such as adding, removing, and checking for the existence of elements, are similar to those of HashMap.
+Operations on HashSet, such as adding or checking for the existence of elements, typically have an average-case time complexity of O(1) due to the efficient hashing and lookup provided by HashMap.
+Understanding that HashSet is implemented using HashMap internally helps in comprehending its behavior and performance characteristics. It also highlights the importance of understanding the underlying data structures when using Java collections.

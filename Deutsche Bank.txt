@@ -1,0 +1,8 @@
+1.Spring anotations and elaberate
+2.How HashMap internally works
+3.collections hierachy
+4.what is index why do we use
+5.Query optimization
+6.What is interface?
+7.Diff between the ArrayList and LinkedList
+8.Explain the SOLID principles 
