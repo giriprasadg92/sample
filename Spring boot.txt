@@ -1,0 +1,326 @@
+What is Spring boot?
+open source java based framework used to create standa lone,production grade spring based applications.
+
+Spring:
+lots of steps involved in setting up,configuration,writing up boilerplate code,deployment apps
+
+spring boot:
+offers lot of pre-configured componets or default,and eliminating the need for lot of boilerplate code that was involved in setting up aspring application.
+
+spring boot = spring framework + prebuild configuration+ Embedded servers
+
+Spring boot components:
+1.Spring boot stater templates
+2.Auto configurations
+3.Spring boot actuator 
+4.Embedded servers(Spring Boot includes support for embedded Tomcat, Jetty, and Undertow servers)
+5.Devtools
+
+1.Presentation layer
+2.Service layer
+3.Data access layer
+
+browser <->Controller <->Service ->Repository <-> Data base
+
+Status code:
+===========
+(1xx) --Information
+	
+(2XX) --success
+  200 --ok
+  201 --created
+  204 --No content
+(3XX) --Redirection
+  301 -- Moved permanetly
+(4XX) --Client error (Resource not found)
+  400--Bad request
+  401 --Unauthorized
+  403 --Forbidden
+  404 --Resource not found
+(5XX)
+  500 --Internal server error
+
+Types of APIrequests:
+======================
+1.GET Request:
+ Retrive or Get resource from the server 
+ Used Only read the data
+2.POST:Create records
+3.PUT :Update the existing resource (record)
+4.DELETE:Delete the records
+
+why do we need a Web framework
+==============================
+-> website have a lot in common
+->Security,Databases,URL's,Authentications
+->Should you do this everytime from scratch?
+
+What is Web framework:
+=====================
+Web framework is nothing but collection of tools and modules that is needed to do standard tasks across web application.
+
+Spring framework feature:
+=======================
+1.Inversion of controle(IOC)
+
+
+Custome Banner Names:
+======================
+Since we have the custom banner ready, we need to create a file named banner.txt 
+in the src/main/resources directory and paste the banner content into it.
+spring.banner.location=classpath:/path/to/banner/bannername.txt
+
+spring.banner.image.location=classpath:banner.gif
+spring.banner.image.width=  //TODO
+spring.banner.image.height= //TODO
+spring.banner.image.margin= //TODO
+spring.banner.image.invert= //TODO
+
+Job Application:
+================
+1.GET /jobs:Get all the jobs
+2.GET /jobs/{id}:Get the specific job by id
+3.POST /jobs:Create new job
+4.DELETE /jobs/{id}:Delete the specific job by id
+5.PUT /jobs/{id}:Update the specific job by id
+6.GET /jobs/{id}/company:Get the jobs associated with the company with job id
+
+JSONLINT:
+===========
+For Validating the json files we can use this website 
+======================
+@RequestMapping :Used to create base URL
+
+Enbling the H2 data base:
+=======================
+1.Add the h2 DB dependency
+2.Add the "spring.h2.console.enabled=true into application.properties file
+3.If want to see the sql queries add the "spring.jpa.show-sql=true" into application.properties file
+4.If want to drop the exsting tables and create new tables in DB "spring.jpa.hibernate.ddl-auto=create-drop"
+5.Add the data source URL "spring.datasource.url=jdbc:h2:mem:test"
+
+
+Company Application:
+===================
+1.GET /companies
+2.GET /companies/{id}
+3.POST /companies
+4.PUT /companies/{id}
+4.DELETE /companies/{id}
+
+Review Application:
+==================
+1.GET /companies/{companyId}/reviews
+2.POST /companies/{companyId}/reviews
+3.GET /companies/{companyId}/reviews/{reviewId}
+4.PUT /companies/{companyId}/reviews/{reviewId}
+5.DELETE /companies/{comanyId}/reviews/{reviewId}
+
+===============================================================
+How docker image created internally in spring boot
+===================
+1.Cloud Native BuildPacks
+2.Spring booy maven plugin
+3.Layering
+4.Packeto BuildPacks
+5.Image create
+Advantages:
+=========
+1.No docker file is needed
+2.Sensible defaults
+3.Consistense in Environment
+4.Security
+5.Layering&Effeciency
+=========================
+Docker Enginee should up and run in local then only excecute the command below
+./mvnw spring-boot:build-image "-DSpring-Boot.build-image.imageName=prasad210/jobapp"
+
+docker push imagename
+docker login 
+username:
+password
+docker push 
+====================================================
+Why PostgreSQL is popular
+1.SQL complainse
+2.Extensibilty
+3.Performance
+4.Strong community support
+5.Data integrity
+========================================================
+docker run -d --name db -e POSTGRES_PASSWORD=root postgres
+
+docker run -d --name -e PGADMIN_DEFAULT_EMAIL=admin@admin.com -e PGADMIN_DEFALT_PASSWORD=root dpage/pgadmin4 
+
+docker exec -it pgadmin ping db
+
+docker rm -f db pgadmin
+
+Network using:
+============
+docker create network my-network
+
+docker run -d --name network my-network -e POSTGES_PASSWORD=root
+
+docker run -d --name pgadmin --network my-network -e PGADMIN_DEFAULT_EMAIL=user@domain.com -e PGADMIN_DEFAULT_PASSWORD=root/pgadmin4
+
+docker exec -it pgadmin ping db
+
+start the PostgresSQL service:
+=============================
+docker run -d\
+--name postgres_container \
+-e POSTGRES_USER=root \
+-e POSTGRES_PASSWORD= root \
+-e PGDATA =/data/postgras \
+-v postges:data/postgres \
+-p 5432:5432 \
+--network postgres
+--restart unless-stopped \
+postgres
+
+Start the PgAdmin service:
+========================
+docker run -d \
+--name pgadmin_container \
+-e PGADMIN_DEFAULT_EMAIL=pgadmin@pgadmin.org \
+-e PGADMIN_DEFAULT_PASSWORD= admin \
+-e PGADMIN_CONFIG_SERVER_MODE=False
+-v pgadmin:/var/lib/pgadmin \
+-p 5050:80 \
+--network postgres
+--restart unless-stopped \
+dpage/pgadmin4 \
+==================================
+Docker compose:
+============
+---
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
+
+
+========================================================================
+PGAdmin:
+=======
+username:postgres
+password:admin
+
+terminal cmd
+============
+docker compose up -d
+
+Microservice:
+===========
+Microservices structures an application as a collection of small autonumous sevices
+Principles of MicroServices:
+===========================
+1.Single responsibility 
+2.Indipendence
+3.Decentralization
+4.Failure Isolation
+5.Continues Delivery/deployment
+=======================================
+company service :8081
+job service :8082
+review service:8083
+===========================================
+GET /reviews?companyId={companyId}
+POST /reviews?companyId={companyId}
+GET /reviews/{reviewId}
+PUT /reviews/{reviewId}
+DELETE /reviews/{reviewId}
+===========================================
+MicroService communication:
+ 1.Synchronous communication(http(RESTTemplate),RPC)
+   RestTemplate Advantages:
+   =======================
+   1.Abstration
+   2.Versatality
+   3.Conversion
+   4.Error Handling
+   5.Integration
+
+ 2.Asynchronous communication(Message queues,Topic(kafka,RabbitMQ))
+
+
+4:54min video
+6:11min Actuator
+
+06:56:44 DOCKER WITH SPRING BOOT
+
+08:03:28 MIGRATING TO POSGRESQL
+08:53:36 INTRODUCTION TO MICROSERVICES
+
+09:16:13 MICROSERVICES: RESTRUCTURING OUR APPLICATION
+
+10:35:44 SYNCHRONOUS COMMUNICATION: INTER-SERVICE COMMUNICATION USING REST TEMPLATE
+==========================================================================
+
+00:02:40 SERVICE REGISTRY AND INTER-SERVICE COMMUNICATION
+
+01:34:21 WORKING WITH OPENFEIGN
+
+01:56:15 DISTRIBUTED TRACING WITH ZIPKIN
+
+02:57:29 SETTING UP CONFIG SERVER
+
+03:45:36 API GATEWAYS
+
+04:31:42 FAULT TOLERANCE AND CIRCUIT BREAKING
+
+05:44:43 WORKING WITH RABBITMQ
+
+06:53:12 PACKAGING YOUR MICROSERVICES INTO JAR
+
+07:15:37 DOCKER FOR SPRING BOOT MICROSERVICES
+
+08:07:16 KUBERNETES FOR SPRING BOOT MICROSERVICES
+=================================================
+
+Eureka server defailt port=8761
+Eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka
+spring.application.name=api-gateway
+logging.level.root=INFO
+logging.level.org.springframework.cloud.gatway.route.RouteDifinationLocator=INFO
+logging.level.org.springframework.cloud.gatway=TRACE
+========================================
+
+7:30time
+
+
+
