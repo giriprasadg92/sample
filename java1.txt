@@ -1,0 +1,206 @@
+Intraduction -
+=======
+how to handle mulple request 
+ custome query jpa
+ findid and name
+ ===============
+ 1. @PathParam
+
+PathParam is generally used to get to a Resource using it's id. Eg. /employees/{emp_id}
+
+Usually it's a HTTP response code 404 if you don't find an Resource by it's id as path param.
+
+2. @QueryParam
+
+QueryParam is generally used to get to an entity using any other field than it's id. Think of "search" or "filter" rather than using "id" to reach the entity. In this case, you will have to expect an array of entities as the response unlike the single entity that you will get as the response for sending id as pathParam
+
+Ex. /employees?firstname=joe
+
+Note: QueryParam can be used for other operations too, such as sort. Eg. /departments/123/employees?sort_by=salary
+
+Usually it's an http response code 200 with an empty array as the response body, if you don't find any entities by the search parameter(s) or filter parameter(s).
+
+3. @RequestBody
+
+Usually it's a POST, PUT or PATCH http verb with which we will send the requestbody.
+
+Why it's a bad idea to send requestbody with http GET
+
+Why it's a bad idea to send requestbody with http DELETE
+
+Following are the situations where we use RequestBody
+
+A. State Mutation
+
+To achieve state mutation, usually json/xml representation of entity's desired state will be sent as requestBody with POST/PUT/PATCH verb. 
+Rest principles doesn't say anything about json or xml, it can be anything; 
+it can be compressed binary formats such as protobuf, avro, cap'n'proto, flatbuffers etc or even plain text too.
+
+B. READ operations (These are examples where READ doesn't equate to HTTP GET)
+
+a. To avoid Loooong Urls - If the parameters required to GET an entity is way too long, we will usually use request body to send it, 
+rather than using url. Http Protocol or Rest principles doesn't limit you on the url size, however some browsers have limit on max length of the url.
+
+What is the maximum length of a URL in different browsers?
+
+b. graphql - Here you will be POSTing the query using requestbody to fetch the data in your desired format
+
+c. Security reason - If you have to send confidential data like password/tokens to fetch some data, usually you will have to post it in either request body or in headers. (Why? because, if it's in url, there is a high possibility that it may end up in application logs)
+
+4. @RequestHeader
+
+Generally used for sending metadata; Not the actual entity body (data). Eg. request-correlation-id, authheader, security tokens etc
+
+5. @Matrixparam, @CookieParam etc
+
+There are other not-so popular HTTP verbs like @Matrixparam and @CookieParam are out there in the JAX-RS spec. This is the Jersey documentation (Keep in mind that Jersey is reference implementation of JAX-RS. You may not find equivalent thing in Spring)
+ 
+ Example 1:
+@RequestParam is used mainly for filtering purposes Lets say you want to get George Martin's book:
+GET localhost:8080/books?author=georgemartin
+Here we pass author=georgemartin as request parameter. This will supposedly get all of Martin's books, example game of thrones series. This will be used mainly for GET operation.
+
+Example 2:
+@PathVariable is used mainly for getting individual objects or piece of data Lets say you want to get a book by its id:
+GET localhost:8080/books/1
+Here we pass 1 as path variable. This will supposedly get the 1 book with id 1, example first part of game of thrones' book. 
+This will be used mainly for DELETE/GET operation.
+
+Example 3:
+@RequestBody is used mainly for saving object(s)(or piece of data) Lets say you want to add a book:
+POST localhost:8080/books/ With request body having following attributes:
+
+{
+  "author":"George Martin",
+  "Book":"Game of thrones"
+  ...
+  ...
+}
+This will add a book to the db. This would be used mainly for PUT/POST operation.
+
+
+Note: never use verb naming for endpoint, instead, use plural nouns. So books/ is ideal instead of getbooks/.
+Reference/Read more:
+https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/#h-use-nouns-instead-of-verbs-in-endpoint-paths
+https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestBody.html
+https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestParam.html
+https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/PathVariable.html
+
+Common error HTTP status codes include:
+
+400 Bad Request - This means that client-side input fails validation.
+401 Unauthorized - This means the user isn't not authorized to access a resource. It usually returns when the user isn't authenticated.
+403 Forbidden - This means the user is authenticated, but it's not allowed to access a resource.
+404 Not Found - This indicates that a resource is not found.
+500 Internal server error - This is a generic server error. It probably shouldn't be thrown explicitly.
+502 Bad Gateway - This indicates an invalid response from an upstream server.
+503 Service Unavailable - This indicates that something unexpected happened on server side (It can be anything like server overload, some parts of the system failed, etc.).
+
+@Value:
+=====
+We can read data from application.aproperty file by using  @Value annotation
+@ConfigurationProperties:--
+===================
+=>This Annotation is used to perform bulk data reading (multiple keys at a time) and 
+parsing into one class type (Stores in project).
+=>Possible conversions are.
+a>1key = 1 variable
+b>Multiple keys with index = List/Set/Array
+c>Multiple keys with key-value format = Map or Properties
+d>Multiple keys with common type = Class Object (Has-A)
+===========================================
+2.Diff between spring boot and spring MVC? OR why do we use spring boot?
+
+Ans:
+Spring boot provides easy to create standalone, production application
+Spring boot provides different stater templates for simplification of dependencies and buld configuration.
+It has embedded server support.
+In spring boot no requirment of xml based configuratio like web.xml,spring.xml
+Spring boot provides production ready feature such as health checks, information of application and other metrics also.
+
+========================================
+
+In Java 8, there are a lot of functional interfaces are introduced in the java.util.function package and the more common ones include but are not limited to:
+Function – it takes one argument and returns a result
+Consumer – it takes one argument and returns no result (represents a side effect)
+Supplier – it takes no argument and returns a result
+Predicate – it takes one argument and returns a boolean
+BiFunction – it takes two arguments and returns a result
+BiConsumer - it takes two (reference type) input arguments and returns no result
+BinaryOperator – it is similar to a BiFunction, taking two arguments and returning a result. The two arguments and the result are all of the same types
+UnaryOperator – it is similar to a Function, taking a single argument and returning a result of the same type
+Runnable: use to execute the instances of a class over another thread with no arguments and no return value.
+Callable: use to execute the instances of a class over another thread with no arguments and it either returns a value or throws an exception.
+Comparator: use to sort different objects in a user-defined order
+Comparable: use to sort objects in the natural sort order
+
+=============================================
+In Java's Stream API, functional interfaces are extensively used to represent operations that can be applied to stream elements. Here's an explanation of some of the predefined functional interfaces commonly used in the Stream API:
+
+Predicate<T>: This functional interface represents a predicate (boolean-valued function) of one argument.
+ It's commonly used for filtering stream elements. 
+ For example, filter(Predicate<? super T> predicate) method in Stream accepts a Predicate to filter elements.
+Function<T, R>: Represents a function that accepts one argument of type T and produces a result of type R. 
+It's frequently used for mapping stream elements to another type. For example, map(Function<? super T, ? extends R> mapper) method in Stream applies a function to each element.
+Comparator<T>: Represents a comparison function that can be used to compare objects of type T. 
+It's often used for sorting stream elements. For example, sorted(Comparator<? super T> comparator) method in Stream sorts elements using a Comparator.
+Supplier<T>: Represents a supplier of results. It's commonly used for generating stream elements or providing a default value. 
+For example, generate(Supplier<T> s) method in Stream generates an infinite stream using the provided Supplier.
+Consumer<T>: Represents an operation that accepts a single input argument of type T and returns no result. 
+It's frequently used for performing side-effects on stream elements. For example, 
+forEach(Consumer<? super T> action) method in Stream performs the given action for each element of the stream.
+UnaryOperator<T>: Represents an operation on a single operand of type T that produces a result of the same type T. 
+It's often used for stream element transformations. For example, Stream<T> map(UnaryOperator<T> mapper) method in Stream applies a unary operator to each element.
+BinaryOperator<T>: Represents an operation upon two operands of the same type T, producing a result of the same type T.
+ It's occasionally used for reduction operations in streams. For example, reduce(BinaryOperator<T> accumulator) method in Stream performs a reduction on the elements using the provided binary operator.
+These are some of the key predefined functional interfaces used in the Stream API. 
+They provide a standardized way to perform various operations on stream elements, making it easier to write concise and ex
+===============================
+In Java's Stream API, you can pass various values depending on the context and requirements of your program. 
+Here are some common types of values that you can pass:
+
+Collections: You can pass collections such as Lists, Sets, or Maps to create streams. For example:
+java
+Copy code
+List<String> list = Arrays.asList("apple", "banana", "cherry");
+Stream<String> stream = list.stream();
+Arrays: You can also create streams from arrays:
+java
+Copy code
+String[] array = {"apple", "banana", "cherry"};
+Stream<String> stream = Arrays.stream(array);
+Stream factories: Some methods in the Stream API generate streams directly. For example:
+java
+Copy code
+Stream<String> stream = Stream.of("apple", "banana", "cherry");
+File streams: You can create streams from files:
+java
+Copy code
+Path path = Paths.get("file.txt");
+Stream<String> lines = Files.lines(path);
+Generators: You can generate streams using methods like Stream.iterate() or Stream.generate():
+java
+Copy code
+Stream<Integer> infiniteStream = Stream.iterate(0, n -> n + 1);
+Stream<Double> randomStream = Stream.generate(Math::random);
+Ranges: For primitive streams, you can use IntStream, LongStream, or DoubleStream to create ranges of values:
+java
+Copy code
+IntStream.range(1, 10); // Creates a stream of integers from 1 to 9
+LongStream.rangeClosed(1, 100); // Creates a stream of longs from 1 to 100 (inclusive)
+
+
+==============================================
+Remove the duplicate from the table
+SELECT [FirstName], 
+    [LastName], 
+    [Country], 
+    COUNT(*) AS CNT
+FROM [SampleDB].[dbo].[Employee]
+GROUP BY [FirstName], 
+      [LastName], 
+      [Country]
+HAVING COUNT(*) > 1;
+
+
+
