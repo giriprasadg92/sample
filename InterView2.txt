@@ -305,4 +305,41 @@ The main difference between @Component and @Bean is in their usage and granulari
 @Component is used at the class level to indicate that a class is a Spring-managed component and should be automatically detected and registered by Spring.
 @Bean is used at the method level to explicitly declare a bean, providing fine-grained control over its creation and configuration.
 In summary, use @Component for automatic bean registration through component scanning, and use @Bean for explicit bean definition and customization in configuration classes.
+===================================================================================
+1.How to run two run two applications
+2.spring will read the two application.property files
+3.can write a try without catch block
+Yes, It is possible to have a try block without a catch block by using a final block.
+
+As we know, a final block will always execute even there is an exception occurred in a try block, except System.exit() it will execute always.
+public class TryBlockWithoutCatch {
+   public static void main(String[] args) {
+      try {
+         System.out.println("Try Block");
+      } finally {
+         System.out.println("Finally Block");
+      }
+   }
+}
+4.what annotations we can use for authentication in spring boot application
+
+@AuthenticationPriniciple
+5.Have used any security anuthentication tools like JWT and OAuth spring security
+6.How to create a object without constructor and dependency injection
+ clone() class.forname ,static block
+It creates an object of a class without invoking any constructor of the class.
+ To clone a method, the corresponding class should have implemented a Cloneable interface which is a marker interface
+7.write a post Api
+8.@valid
+9.why do we use wrapper classes instaede of primitive data types
+ANS:Primitives cannot be assigned a null value, which can be problematic in certain situations. Wrapper classes can be set to null, allowing for more flexibility in handling cases where a value might be absent.
+10 How to use two data base at atime
+11.How to connect the third party application without REST API's and ingrestion tools.
+12.can we call the third party app directly
+13.Spring security
+14.How to disable the embadded server's
+15.@EnableJPAConfiguration
+16.When two DB's are configured which DB used for which application @Primary
+17.@Transational
+18.In multiple tables data was inserted but one table not inserted then i don't want to store the data which are inserted
 
