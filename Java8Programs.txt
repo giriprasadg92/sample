@@ -1,14 +1,15 @@
 
-1.Count the each occurance of charetor in iven string.
+1.Count the each occurance of charetor in given string.
 
 Public static void main(String[] args){
-  String input ="GanjiGiriPrasad";
+ wwwwww
   Map<String,Long> map=Arrays.stream(input.split(""))
                              .collect(Collectors.groupingBy().(Function.identity,Collectors.counting()));
   System.out.println(map);
 }
 
 2.Find the all the duplicate elements in a String
+
    Public static void main(String[] args){
   String input ="GanjiGiriPrasad";
   List<String> duplicateChar=Arrays.stream(input.split(""))
@@ -19,8 +20,8 @@ Public static void main(String[] args){
                               .collect(Collector.toList());				
   System.out.println(duplicateChar);
 }
-3.Unique char in String.
- 2.Find the all the duplicate elements in a String
+
+3.Find the all the unique elements in a String
    Public static void main(String[] args){
   String input ="GanjiGiriPrasad";
   List<String> uniqueChar=Arrays.stream(input.split(""))
@@ -51,7 +52,43 @@ Public static void main(String[] args){
                              .findFirst().get.getKey();
   System.out.println(firstChar);
   }
-6.Find a second highest value in array
+
+
+6.How to find only duplicate elements with its count from the String ArrayList in Java8?
+public class TestNotes {
+
+    public static void main(String[] args) 
+      List<String> names = Arrays.asList("AA", "BB", "AA", "CC");
+      Map<String,Long> namesCount = names
+                                   .stream()
+                       .filter(x->Collections.frequency(names, x)>1)
+                       .collect(Collectors.groupingBy
+                       (Function.identity(), Collectors.counting()));
+      System.out.println(namesCount);
+  }
+}
+
+Output:
+{AA=2}
+7.Find the duplicate numbers
+  public static void main(String[] args) {
+        List<Integer> integerList=Arrays.asList(10,15,8,49,25,98,98,32,15);
+      List<Integer> duplicate=integerList.stream()
+                .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()))
+                .entrySet().stream()
+                .filter(e->e.getValue() > 1)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+        System.out.println(""+duplicate);
+
+    }
+8.Find the highest value 
+Integer highest = Stream.of(1, 2, 3, 77, 6, 5)
+                .max(Comparator.comparing(Integer::valueOf))
+                .get();
+        System.out.println(""+highest);
+3.Unique char in String.
+9.Find a second highest value in array
    int[] numbers={5,9,11,2,8,21,1};
   Integer secHighest =Arrays.stream(numbers).boxed
           .sorted(Comparator.reverseOrder())
@@ -61,25 +98,25 @@ Public static void main(String[] args){
  System.out.println(secHighest);
 }
 
-7.Find a second lowest value in array
+10.Find a second lowest value in array
    int[] numbers={5,9,11,2,8,21,1};
-  Integer secHighest =Arrays.stream(numbers).boxed
+  Integer secLowest =Arrays.stream(numbers).boxed
           .sorted()
           .skip(1)
           .findFirst()
           .get();
- System.out.println(secHighest);
+ System.out.println(secLowest);
 
-8.Find the logest String in given array
+11.Find the logest String in given array
   String[] strArray={"java","techie","springboot","microservices"};
     String logestString=Arrays.stream(strArray)
-          .reduce(word1,word2)-.(word1.length>word2.length?word1:word2)
+          .reduce(word1,word2)->(word1.length>word2.length?word1:word2)
           .get();
 
   System.out.println(logestString);
  }
 
-9.Find all the elements from array who starts with 1  
+12.Find all the elements from array who starts with 1  
    int[] numbers={5,9,11,2,8,21,1};
   List<String> strList=Arrays.stream(numbers).boxed
         .map(s->s+"")
@@ -87,8 +124,50 @@ Public static void main(String[] args){
         .collect(Collectors.toList());
   System.out.println(strList)}
 
+========================================================================================================================
+13.Sort the employee based on the salary
+public class SortSalaries {
+    public static void main(String[] args) {
+        List<Employee> employees = Arrays.asList(
+            new Employee(1, "Aditi", 30, 100000, "F", "HR", "Mumbai", 1995),
+            new Employee(2, "Rahul", 25, 130000, "M", "Engineering", "Bangalore", 2000),
+            new Employee(3, "Vishal", 34, 110000, "M", "Engineering", "Mumbai", 1998),
+            new Employee(4, "Lakshmi", 28, 150000, "F", "HR", "Bangalore", 1992),
+            new Employee(5, "Priya", 24, 90000, "F", "Marketing", "Delhi", 2005)
+        );
 
-10.String.join example
+        List<Employee> sortedEmployees = employees.stream()
+                                                   .sorted(Comparator.comparingLong(Employee::getSalary))
+                                                   .collect(Collectors.toList());
+
+        sortedEmployees.forEach(System.out::println);
+    }
+}
+
+14.Find the second highest salary
+
+        long secondHighestSalary = employees.stream()
+                                            .mapToLong(Employee::getSalary)
+                                            .boxed()
+                                            .distinct()
+                                            .sorted(Comparator.reverseOrder())
+                                            .skip(1)
+                                            .findFirst()
+                                            .orElse(0);
+
+        System.out.println("The second highest salary in the organization is: " + secondHighestSalary);
+    }
+15.Find the highest salary
+
+        long highestSalary = employees.stream()
+                                      .mapToLong(Employee::getSalary)
+                                      .max()
+                                      .orElse(0);
+
+        System.out.println("The highest salary in the organization is: " + highestSalary);
+
+
+16.String.join example
    List<String> nos=Arrays.asList("1","2","3","4","5");
    //1-2-3-4
  String joinStr=String.join("-",nos);
@@ -96,9 +175,27 @@ Public static void main(String[] args){
 System.out.println(joinStr);
 
 
-11.
+17.
    IntStream.rangClosed(1,10)
             .skip(1)
             .limit(8)
             .forEach(System.out::println);
 
+18.Find the list of students who rank is in between 50 and 100
+ ListM<Stuned> students=studentList.stream()
+             .filter(student-> student.getRank()>50 && student.getRank()<100)
+		.collect(Collector.toList());
+system.out.println(students);
+19.Reverse the sentence 
+public class Test {
+        public static void main(String[] args) {
+            String sentence = "The quick brown fox jumps over the lazy dog";
+            String reversedSentence = Arrays.stream(sentence.split(" "))
+                                      .reduce((first, second) -> second + " " + first)
+                                      .orElse("");
+            System.out.println(reversedSentence);
+        }
+    }
+Out/put:
+========
+dog lazy the over jumps fox brown quick The
