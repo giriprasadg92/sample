@@ -1,3 +1,25 @@
+
+HashMap with Singly Linked List
+In the last article, I have explained the internal working mechanism of the hashMap and everything you may be asked in the interviews. Now, this is another interesting question that is generally asked in interviews → What are the differences between HashMap and CocurrentHashMap?
+
+Through the medium of this article, we’ll see how these are different and their working mechanism.
+
+Before we jump into this topic I would recommend you go through the below article which will clear your concepts related to HashMap and its internal working mechanism. This article is a continuation of the last article.
+
+What is HashMap?
+Basically, HashMap is one of the most popular Collection classes in the Java collection framework. HashMapinternally uses HashTable implementation. This HashMap class extends AbstractMap class that implements the Mapinterface.
+HashMap stores the entries in the form of a key-value pair and allows at max one null key and multiple null values.
+Java HashMap is not thread-safe and hence it should not be used in multithreaded applications. For the multi-threaded applications, we should use ConcurrentHashMap class.
+What is ConcurrentHashMap?
+Java ConcurrentHashMap class is part of the Collection classes in the Java collection framework.
+Basically, it is a HashTable implementation, that supports concurrent retrieval and updates in the map.
+
+Hence it can be used in multi-threaded applications to avoid ConcurrentModificationException.
+While iterating over a hashmap using an iterator, if we try to modify the structure of the map(i.e. the number of entries (either remove or put a new entry in the map)), then we get ConcurrentModificationException. To get rid of this exception and to change the structure of the map we should use ConcurrentHashMap.
+The ConcurrentHashMap operations are thread-safe.
+ConcurrentHashMap doesn’t allow null for keys and values. If we try to add null key or value it throws NullPointerException.
+
+The ConcurrentHashMap class is similar to HashMap, except it’s thread-safe and allows modification while iterating over it.
 The ConcurrentHashMap operations are thread-safe.
 ConcurrentHashMap doesn’t allow null for keys and values. If we try to add null key or value it throws NullPointerException.
 
