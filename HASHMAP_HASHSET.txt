@@ -2,6 +2,10 @@ The ConcurrentHashMap operations are thread-safe.
 ConcurrentHashMap doesn’t allow null for keys and values. If we try to add null key or value it throws NullPointerException.
 
 The ConcurrentHashMap class is similar to HashMap, except it’s thread-safe and allows modification while iterating over it.
+The ConcurrentHashMap operations are thread-safe.
+ConcurrentHashMap doesn’t allow null for keys and values. If we try to add null key or value it throws NullPointerException.
+
+The ConcurrentHashMap class is similar to HashMap, except it’s thread-safe and allows modification while iterating over it.
 In Java 7, the internal implementation of HashMap is similar to the general concept outlined earlier, but there are some differences and specifics to be aware of. Here's how HashMap works internally based on Java 7:
 
 Array of Buckets:
