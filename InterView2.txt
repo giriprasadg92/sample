@@ -1,0 +1,250 @@
+1.I want read the 20k records from db how to achive the performance in micro services
+
+To achieve optimal performance when reading 20,000 records from a database in a microservices architecture, you can consider the following strategies:
+
+Pagination: Instead of fetching all 20,000 records at once, implement pagination to fetch a limited number of records per request. This reduces the amount of data transferred over the network and improves response times.
+Optimized Queries: Write efficient database queries that only retrieve the necessary data. Avoid fetching unnecessary columns or joining unnecessary tables.
+Caching: Implement caching mechanisms to store frequently accessed data in memory. This reduces the need to fetch data from the database repeatedly and improves overall performance.
+Asynchronous Processing: If fetching and processing all 20,000 records synchronously is not feasible, consider asynchronous processing. Fetch the records in batches and process them concurrently to reduce overall processing time.
+Load Balancing: Distribute the load across multiple instances of the microservice using load balancing techniques. This ensures that no single instance is overwhelmed with requests, leading to better performance and scalability.
+Database Indexing: Ensure that the database tables are properly indexed to speed up data retrieval operations. Indexes help the database engine locate and retrieve specific records more efficiently.
+Connection Pooling: Use connection pooling to reuse database connections instead of establishing a new connection for each request. This reduces connection overhead and improves performance.
+Vertical Scaling: If the microservice is struggling to handle the load, consider vertically scaling by upgrading the resources (CPU, memory) of the server running the microservice.
+Horizontal Scaling: Scale out by adding more instances of the microservice to distribute the load across multiple servers. This improves fault tolerance and overall performance.
+Monitoring and Optimization: Continuously monitor the performance of the microservice and database to identify bottlenecks and areas for optimization. Use profiling tools to analyze code performance and database query execution times.
+By implementing these strategies, you can achieve optimal performance when reading 20,000 reco
+
+
+2.Spring boot is lazy loading or egarly loading by default
+n Spring Boot, bean initialization is by default eagerly loaded. This means that when the Spring context is initialized, all beans defined in the application context are instantiated and their dependencies are injected, regardless of whether they are immediately needed or not.
+
+However, Spring also provides mechanisms for lazy loading beans, where a bean is initialized only when it is first requested. This can help improve application startup time and reduce memory usage, especially for beans that are not frequently used or have heavy initialization processes.
+
+You can configure lazy loading for specific beans by using the @Lazy annotation on bean definitions or by setting the lazy-init attribute to true in XML configuration files. Additionally, you can use @Lazy on injection points to indicate that a dependency should be lazily initialized.
+
+Here's an example of lazy loading a bean using @Lazy annotation:
+
+java
+Copy code
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+
+@Configuration
+public class AppConfig {
+
+    @Bean
+    @Lazy
+    public SomeBean someBean() {
+        return new SomeBean();
+    }
+}
+In this example, the SomeBean will be lazily initialized when it is first requested by another bean or component.
+
+So, while Spring Boot beans are eagerly loaded by default, you have the flexibility to configure lazy loading for specific beans as needed.
+
+3.Entity class are lazy loading or egarly loading by default
+In Spring Boot, the default behavior for loading associations within entity classes depends on how they are mapped using JPA (Java Persistence API) or Hibernate, which is the default JPA implementation used by Spring Boot.
+
+By default, associations are lazily loaded in JPA/Hibernate. This means that when an entity is loaded from the database, its associated entities are not loaded until they are explicitly accessed. This behavior helps to minimize the amount of data fetched from the database and improves performance by loading only the necessary data.
+
+For example, consider an entity Book with a OneToMany association to Author:
+
+java
+Copy code
+@Entity
+public class Book {
+    @Id
+    private Long id;
+    
+    @OneToMany(mappedBy = "book")
+    private List<Author> authors;
+    
+    // other fields and methods
+}
+In this case, when a Book object is loaded from the database, its associated Author objects will not be loaded unless the authors collection is accessed explicitly.
+
+However, you can override this default behavior and configure associations to be eagerly loaded if needed. You can achieve this by specifying the FetchType.EAGER option in the mapping annotations. For example:
+
+java
+Copy code
+@Entity
+public class Book {
+    @Id
+    private Long id;
+    
+    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
+    private List<Author> authors;
+    
+    // other fields and methods
+}
+With this configuration, the associated Author objects will be eagerly loaded whenever a Book object is fetched from the database.
+
+It's important to use lazy loading for associations by default and only selectively use eager loading when necessary to avoid performance issues such as the "N+1 selects problem", where multiple additional queries are executed to fetch associated entities unnecessarily.
+
+
+
+4.How to break the singleton class
+
+Breaking the Singleton pattern in Java typically involves finding ways to create multiple instances of the Singleton class despite its intention to allow only one instance to exist. Here are a few common ways to break the Singleton pattern:
+
+Reflection: Using Java Reflection API, you can access the private constructor of the Singleton class and create new instances. Here's an example:
+java
+Copy code
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
+public class SingletonBreaker {
+    public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        Singleton instance1 = Singleton.getInstance();
+
+        Constructor<Singleton> constructor = Singleton.class.getDeclaredConstructor();
+        constructor.setAccessible(true);
+        Singleton instance2 = constructor.newInstance();
+
+        System.out.println(instance1.hashCode());
+        System.out.println(instance2.hashCode());
+    }
+}
+Serialization and Deserialization: If the Singleton class is Serializable and then deserialized, it can create a new instance. To prevent this, you can override the readResolve() method and return the existing instance.
+java
+Copy code
+import java.io.*;
+
+public class Singleton implements Serializable {
+    private static final Singleton INSTANCE = new Singleton();
+
+    private Singleton() {}
+
+    public static Singleton getInstance() {
+        return INSTANCE;
+    }
+
+    private Object readResolve() throws ObjectStreamException {
+        return INSTANCE;
+    }
+}
+Cloning: Implementing the Cloneable interface and overriding the clone() method can create a new instance of the Singleton class.
+java
+Copy code
+public class Singleton implements Cloneable {
+    private static final Singleton INSTANCE = new Singleton();
+
+    private Singleton() {}
+
+    public static Singleton getInstance() {
+        return INSTANCE;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        throw new CloneNotSupportedException();
+    }
+}
+ClassLoader: Using multiple class loaders can load the Singleton class multiple times, creating new instances. This is more complex and less common.
+These techniques are not recommended in practice as they violate the intention of the Singleton pattern, which is to ensure only one instance of a class exists. It's important to design your Singleton class carefully to prevent these kinds of issues.
+
+
+
+
+
+5.can we override the static method in java
+ Yes we can override the static method's but it's not a good practice.
+In Java, static methods cannot be overridden in the traditional sense like instance methods. When a subclass defines a static method with the same signature as a static method in the superclass, it is hiding the superclass method rather than overriding it.
+
+Consider the following example:
+
+java
+Copy code
+class Parent {
+    static void staticMethod() {
+        System.out.println("Parent's static method");
+    }
+}
+
+class Child extends Parent {
+    static void staticMethod() {
+        System.out.println("Child's static method");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Parent.parentStaticMethod(); // Output: Parent's static method
+        Child.childStaticMethod();   // Output: Child's static method
+    }
+}
+In this example, Child class defines its own static method staticMethod(). If you call Child.staticMethod(), it will invoke the method defined in Child, not the one defined in Parent. This behavior is called method hiding.
+
+However, if you refer to the staticMethod() using a reference variable of type Parent, it will invoke the staticMethod() defined in Parent:
+
+java
+Copy code
+Parent obj = new Child();
+obj.staticMethod(); // Output: Parent's static method
+In this case, even though obj is referring to an instance of Child, the static method invoked is the one defined in Parent. This behavior is because static methods are resolved at compile time based on the reference type, not the actual object type.
+
+So, while static methods cannot be overridden like instance methods, they can be hidden in subclasses. However, it's generally recommended to avoid hiding static methods because it can lead to confusion and unexpected behavior.
+
+6.can we overload the main method
+Yes, you can overload the main method in Java. Overloading means defining multiple methods in the same class with the same name but different parameter lists.
+7.input=["suma","Prasad"]
+  out/put=["suMa","PrAsad"]
+8.string input ="giriprasad";
+   out/put="gIRIPRASAD"
+9.Fail fast and fail safe
+10.what is Optional class before optional how are handling null pointer exception
+11.in Autowired what is by type and name
+12.HashMap
+13.transient key word
+14.ioc and dependency injection
+15.Componet vs bean
+
+================================================
+1.Solide principles
+2.exception hierarchy
+3.callable interface
+4.concurrentHashMap
+5.collections
+6.when do we go for setter method injection and constructor injection
+7.how to connect the database
+8.RequestParam,PathVairable
+9.RestController vs controller
+10 how to read the exeternal files data 
+11.disable default tomcat server
+12.index
+In SQL, an index is a database structure that improves the speed of data retrieval operations on a database table at the cost of additional space and decreased performance on write operations (such as INSERT, UPDATE, and DELETE).
+Search Queries: Queries that involve searching for rows based on the values of one or more columns.
+Join Queries: Queries that involve joining multiple tables together.
+Sorting Queries: Queries that involve sorting the results based on the values of one or more columns.
+Grouping Queries: Queries that involve grouping the results based on the values of one or more columns.
+
+13.How to create composite index
+
+@Embeddable
+public class EmployeeIdentity implements Serializable {
+    @NotNull
+    @Size(max = 20)
+    private String employeeId;
+
+    @NotNull
+    @Size(max = 20)
+    private String companyId;
+
+    public EmployeeIdentity() {
+
+    }
+=========================
+@Entity
+@Table(name = "employees")
+public class Employee {
+
+    @EmbeddedId
+    private EmployeeIdentity employeeIdentity;
+reference:https://www.callicoder.com/hibernate-spring-boot-jpa-composite-primary-key-example/
+14.view
+======================================================================
+1.create a REST API which is having 3 end points one create ,retrive all records,retrive specific record
+2.How to customize the json response in REST API's
+3.How to map the one to many relationship with employee and address table 
+4.
