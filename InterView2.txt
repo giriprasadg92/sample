@@ -285,3 +285,24 @@ ANS:Primitives cannot be assigned a null value, which can be problematic in cert
 16.When two DB's are configured which DB used for which application @Primary
 17.@Transational
 18.In multiple tables data was inserted but one table not inserted then i don't want to store the data which are inserted
+
+===========================================================================================
+In Spring Boot, both @Component and @Bean annotations are used to define beans, which are objects managed by the Spring container. However, they are used in different contexts and serve different purposes:
+
+@Component Annotation:
+@Component is a generic stereotype annotation used to indicate that a class is a Spring-managed component.
+It is typically used to annotate classes that are intended to be auto-detected and registered as Spring beans during component scanning.
+Classes annotated with @Component are automatically registered in the Spring application context when component scanning is enabled.
+Examples of classes commonly annotated with @Component include service classes, repository classes, and controllers.
+@Bean Annotation:
+@Bean is a method-level annotation used to explicitly declare a bean in a Spring configuration class.
+It is used when you need fine-grained control over the configuration of a bean or when the bean creation logic is non-trivial.
+The method annotated with @Bean is responsible for creating and configuring the bean instance, which is then registered in the Spring application context.
+@Bean methods can be defined in any Spring-managed configuration class, such as @Configuration classes or classes annotated with @ComponentScan.
+Main Difference:
+
+The main difference between @Component and @Bean is in their usage and granularity.
+@Component is used at the class level to indicate that a class is a Spring-managed component and should be automatically detected and registered by Spring.
+@Bean is used at the method level to explicitly declare a bean, providing fine-grained control over its creation and configuration.
+In summary, use @Component for automatic bean registration through component scanning, and use @Bean for explicit bean definition and customization in configuration classes.
+
